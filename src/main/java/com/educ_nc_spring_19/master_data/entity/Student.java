@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.util.UUID;
 
 @Entity
 public class Student extends Member {
@@ -18,11 +17,11 @@ public class Student extends Member {
     private String hrComment;
 
     @ManyToOne
-    @JoinColumn(name = "interviewer_id")
+    @JoinColumn(name = "interviewer_id", nullable = false)
     private Mentor interviewer;
 
     @ManyToOne
-    @JoinColumn(name = "subdirection_id")
+    @JoinColumn(name = "subdirection_id", nullable = false)
     private Subdirection subdirection;
 
     protected Student() {

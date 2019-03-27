@@ -15,7 +15,7 @@ public class Subdirection {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "direction_id")
+    @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
 
     private String externalId;
