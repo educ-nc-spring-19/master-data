@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.educ_nc_spring_19</groupId>
     <artifactId>master_data</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>master_data</name>
     <description>Implementation of Master Data microservice</description>
 
@@ -43,6 +43,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.educ-nc-spring-19</groupId>
+            <artifactId>educ-nc-spring-19-common</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -1,9 +1,9 @@
 package com.educ_nc_spring_19.master_data.model.entity;
 
+import com.educ_nc_spring_19.educ_nc_spring_19_common.common.CreatedUpdatedDateByUser;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,13 +24,8 @@ public class Subdirection {
 
     private String externalId;
 
-    @Column(columnDefinition= "timestamp with time zone")
-    private OffsetDateTime createdDate;
-    private UUID createdByUserId;
-
-    @Column(columnDefinition= "timestamp with time zone")
-    private OffsetDateTime updatedDate;
-    private UUID updatedByUserId;
+    @Embedded
+    private CreatedUpdatedDateByUser createdUpdatedDateByUser;
 
     @OneToMany(mappedBy = "subdirection")
     private Set<Student> students;
