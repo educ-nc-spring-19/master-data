@@ -21,6 +21,8 @@ public abstract class Member {
     private String phoneNumber;
     private String externalId;
 
+    private UUID userId;
+
     @ManyToOne
     @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
