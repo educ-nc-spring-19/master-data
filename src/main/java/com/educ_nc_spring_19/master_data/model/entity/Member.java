@@ -21,6 +21,7 @@ public abstract class Member {
     private String phoneNumber;
     private String externalId;
 
+    @Column(nullable = false)
     private UUID userId;
 
     @ManyToOne

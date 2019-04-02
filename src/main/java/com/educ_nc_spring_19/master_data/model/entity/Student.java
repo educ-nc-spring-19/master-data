@@ -27,6 +27,6 @@ public class Student extends Member {
     private Mentor interviewer;
 
     @ManyToOne
-    @JoinColumn(name = "subdirection_id", nullable = false)
+    @JoinColumn(name = "subdirection_id")
     private Subdirection subdirection;
 }
