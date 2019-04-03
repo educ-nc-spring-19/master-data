@@ -1,6 +1,8 @@
 package com.educ_nc_spring_19.master_data.model.entity;
 
 import com.educ_nc_spring_19.educ_nc_spring_19_common.common.CreatedUpdatedDateByUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,10 +26,15 @@ public abstract class Member {
     @Column(nullable = false)
     private UUID userId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
 
+    @Column(name = "direction_id", insertable = false, updatable = false)
+    private UUID directionId;
+
+    @JsonUnwrapped
     @Embedded
     private CreatedUpdatedDateByUser createdUpdatedDateByUser;
 }
