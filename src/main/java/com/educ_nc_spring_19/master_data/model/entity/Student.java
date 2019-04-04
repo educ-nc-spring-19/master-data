@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,7 +27,13 @@ public class Student extends Member {
     @JoinColumn(name = "interviewer_id", nullable = false)
     private Mentor interviewer;
 
+    @Column(name = "interviewer_id", insertable = false, updatable = false)
+    private UUID interviewerId;
+
     @ManyToOne
     @JoinColumn(name = "subdirection_id")
     private Subdirection subdirection;
+
+    @Column(name = "subdirection_id", insertable = false, updatable = false)
+    private UUID subdirectionId;
 }

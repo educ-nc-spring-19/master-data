@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,5 +18,5 @@ public class Mentor extends Member {
 
     @JsonIgnore
     @OneToMany(mappedBy = "interviewer")
-    private Set<Student> students;
+    private List<Student> students;
 }

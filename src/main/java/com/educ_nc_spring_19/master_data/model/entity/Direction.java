@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -25,9 +25,9 @@ public class Direction {
 
     @JsonIgnore
     @OneToMany(mappedBy = "direction")
-    private Set<Member> members;
+    private List<Member> members;
 
     @JsonIgnore
     @OneToMany(mappedBy = "direction")
-    private Set<Subdirection> subdirections;
+    private List<Subdirection> subdirections;
 }

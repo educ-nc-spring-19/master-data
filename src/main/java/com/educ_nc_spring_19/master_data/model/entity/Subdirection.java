@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -34,5 +34,5 @@ public class Subdirection {
 
     @JsonIgnore
     @OneToMany(mappedBy = "subdirection")
-    private Set<Student> students;
+    private List<Student> students;
 }
