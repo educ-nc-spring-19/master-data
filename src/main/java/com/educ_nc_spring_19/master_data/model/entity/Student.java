@@ -2,11 +2,9 @@ package com.educ_nc_spring_19.master_data.model.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -23,14 +21,18 @@ public class Student extends Member {
     @Column(columnDefinition = "text")
     private String hrComment;
 
-    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interviewer_id", nullable = false)
     private Mentor interviewer;
 
     @Column(name = "interviewer_id", insertable = false, updatable = false)
     private UUID interviewerId;
 
-    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subdirection_id")
     private Subdirection subdirection;
 
