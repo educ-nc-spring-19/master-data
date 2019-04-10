@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MentorRepository extends CrudRepository<Mentor, UUID> {
-    List<Mentor> findByUserIdIn(Iterable<UUID> userIds);
+    List<Mentor> findAllByUserIdIn(Iterable<UUID> userIds);
+    List<Mentor> findAllByDirectionId(UUID directionId);
 }

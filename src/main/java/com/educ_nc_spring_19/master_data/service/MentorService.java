@@ -12,23 +12,27 @@ import java.util.*;
 public class MentorService {
     private final MentorRepository mentorRepository;
 
-    public List<Mentor> findAllMentors() {
-        List<Mentor> mentors = new ArrayList<>();
+    public List<Mentor> findAll() {
+        List<Mentor> mentors = new LinkedList<>();
         mentorRepository.findAll().forEach(mentors::add);
         return mentors;
     }
 
     public List<Mentor> findAllByUserId(Iterable<UUID> userIds) {
-        return mentorRepository.findByUserIdIn(userIds);
+        return mentorRepository.findAllByUserIdIn(userIds);
     }
 
     public List<Mentor> findAllById(Iterable<UUID> ids) {
-        List<Mentor> mentors = new ArrayList<>();
+        List<Mentor> mentors = new LinkedList<>();
         mentorRepository.findAllById(ids).forEach(mentors::add);
         return mentors;
     }
 
     public Optional<Mentor> findById(UUID id) {
         return mentorRepository.findById(id);
+    }
+
+    public List<Mentor> findAllByDirectionId(UUID directionId) {
+        return mentorRepository.findAllByDirectionId(directionId);
     }
 }
