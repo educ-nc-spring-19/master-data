@@ -6,7 +6,7 @@ import com.educ_nc_spring_19.master_data.model.entity.Mentor;
 import com.educ_nc_spring_19.master_data.service.MentorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
