@@ -17,6 +17,7 @@ import java.util.List;
 public class Mentor extends Member {
     private String description;
     private String acronym;
+    private String deptName;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

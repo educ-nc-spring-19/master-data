@@ -41,6 +41,7 @@ CREATE TABLE master_data.mentor
     user_id uuid NOT NULL,
     direction_id uuid NOT NULL,
     acronym character varying(255) COLLATE pg_catalog."default",
+    dept_name character varying(255) COLLATE pg_catalog."default",
     external_id character varying(255) COLLATE pg_catalog."default",
     created_date timestamp with time zone,
     created_by_user_id uuid,
