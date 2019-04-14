@@ -1,16 +1,22 @@
 package com.educ_nc_spring_19.master_data.model.entity;
 
-import com.educ_nc_spring_19.educ_nc_spring_19_common.common.CreatedUpdatedDateByUser;
+import com.educ_nc_spring_19.educ_nc_spring_19_common.common.Audit;
+import com.educ_nc_spring_19.educ_nc_spring_19_common.common.Auditable;
+import com.educ_nc_spring_19.educ_nc_spring_19_common.common.listener.AuditListener;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 
 @Entity
-public class Subdirection {
+@EntityListeners(AuditListener.class)
+public class Subdirection implements Auditable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -18,15 +24,24 @@ public class Subdirection {
     private String name;
     private String description;
 
-    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "direction_id", nullable = false)
     private Direction direction;
+
+    @Column(name = "direction_id", insertable = false, updatable = false)
+    private UUID directionId;
 
     private String externalId;
 
     @Embedded
-    private CreatedUpdatedDateByUser createdUpdatedDateByUser;
+    private Audit audit;
 
-    @OneToMany(mappedBy = "subdirection")
-    private Set<Student> students;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(mappedBy = "subdirection", fetch = FetchType.LAZY)
+    private List<Student> students;
 }
