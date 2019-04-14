@@ -21,14 +21,21 @@ public class Student extends Member {
     @Column(columnDefinition = "text")
     private String hrComment;
 
+    // поправить SQL файлы
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "interviewer_id", nullable = false)
+    @JoinColumns({
+            @JoinColumn(name = "interviewer_id", referencedColumnName = "id"),
+            @JoinColumn(name = "ext_interviewer_id", referencedColumnName = "external_id", nullable = false)
+    })
     private Mentor interviewer;
 
     @Column(name = "interviewer_id", insertable = false, updatable = false)
     private UUID interviewerId;
+
+    @Column(name = "ext_interviewer_id", insertable = false, updatable = false)
+    private String extInterviewerId;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
