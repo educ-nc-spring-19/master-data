@@ -24,10 +24,10 @@ public class Student extends Member {
     // поправить SQL файлы
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "interviewer_id", referencedColumnName = "id"),
-            @JoinColumn(name = "ext_interviewer_id", referencedColumnName = "external_id", nullable = false)
+            @JoinColumn(name = "ext_interviewer_id", referencedColumnName = "external_id")
     })
     private Mentor interviewer;
 

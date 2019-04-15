@@ -26,16 +26,18 @@ public abstract class Member implements Auditable {
     private String lastName;
     private String emailAddress;
     private String phoneNumber;
+
+    @Column(name = "external_id", unique = true, nullable = false)
     private String externalId;
 
-    @Column(nullable = false)
+    @Column
     private UUID userId;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "direction_id", nullable = false)
+    @JoinColumn(name = "direction_id")
     private Direction direction;
 
     @Column(name = "direction_id", insertable = false, updatable = false)

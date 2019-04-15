@@ -42,6 +42,6 @@ public class Subdirection implements Auditable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "subdirection", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdirection", fetch = FetchType.LAZY)
     private List<Student> students;
 }

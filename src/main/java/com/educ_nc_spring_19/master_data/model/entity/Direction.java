@@ -23,6 +23,8 @@ public class Direction implements Auditable {
 
     private String name;
     private String description;
+
+    @Column(unique = true)
     private String externalId;
 
     @Embedded
@@ -31,12 +33,16 @@ public class Direction implements Auditable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "direction", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "direction",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private List<Member> members;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "direction", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "direction",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private List<Subdirection> subdirections;
 }
