@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditListener.class)
-public class Subdirection implements Auditable {
+public class Subdirection implements Auditable, Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -28,12 +29,15 @@ public class Subdirection implements Auditable {
     @ToString.Exclude
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "direction_id", nullable = false)
+    @JoinColumn(name = "direction_id", referencedColumnName = "id")
     private Direction direction;
 
     @Column(name = "direction_id", insertable = false, updatable = false)
     private UUID directionId;
 
+    private String extDirectionId;
+
+    @Column(unique = true, nullable = false)
     private String externalId;
 
     @Embedded

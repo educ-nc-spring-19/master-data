@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditListener.class)
-public class Direction implements Auditable {
+public class Direction implements Auditable, Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -24,7 +25,7 @@ public class Direction implements Auditable {
     private String name;
     private String description;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String externalId;
 
     @Embedded

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -18,6 +19,9 @@ public class Mentor extends Member {
     private String description;
     private String acronym;
     private String deptName;
+
+    @Column(unique = true, nullable = false)
+    private String externalId;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

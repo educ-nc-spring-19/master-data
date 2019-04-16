@@ -24,25 +24,26 @@ public class Student extends Member {
     // поправить SQL файлы
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "interviewer_id", referencedColumnName = "id"),
-            @JoinColumn(name = "ext_interviewer_id", referencedColumnName = "external_id")
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interviewer_id", referencedColumnName = "id")
     private Mentor interviewer;
 
     @Column(name = "interviewer_id", insertable = false, updatable = false)
     private UUID interviewerId;
 
-    @Column(name = "ext_interviewer_id", insertable = false, updatable = false)
     private String extInterviewerId;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subdirection_id")
+    @JoinColumn(name = "subdirection_id", referencedColumnName = "id")
     private Subdirection subdirection;
 
     @Column(name = "subdirection_id", insertable = false, updatable = false)
     private UUID subdirectionId;
+
+    private String extSubdirectionId;
+
+    @Column(name = "external_id", unique = true, nullable = false)
+    private String externalId;
 }

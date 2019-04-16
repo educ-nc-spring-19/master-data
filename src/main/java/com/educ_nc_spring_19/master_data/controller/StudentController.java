@@ -5,6 +5,7 @@ import com.educ_nc_spring_19.master_data.mapper.StudentMapper;
 import com.educ_nc_spring_19.master_data.model.entity.Student;
 import com.educ_nc_spring_19.master_data.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class StudentController {
     public ResponseEntity<List<StudentDTO>> findAllById(
             @RequestParam(value = "id", required = false) List<UUID> ids) {
 
-        if (ids == null || ids.isEmpty()) {
+        if (CollectionUtils.isEmpty(ids)) {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(studentMapper.toStudentsDTO(studentService.findAll()));
         }
