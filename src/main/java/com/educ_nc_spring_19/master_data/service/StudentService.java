@@ -30,4 +30,8 @@ public class StudentService {
         studentRepository.findAllById(ids).forEach(students::add);
         return students;
     }
+
+    public <S extends Student> Iterable<S> saveAll(Iterable<S> students) {
+        return studentRepository.saveAll(students);
+    }
 }

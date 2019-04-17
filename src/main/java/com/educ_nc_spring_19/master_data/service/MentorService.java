@@ -35,4 +35,8 @@ public class MentorService {
     public List<Mentor> findAllByDirectionId(UUID directionId) {
         return mentorRepository.findAllByDirectionId(directionId);
     }
+
+    public <S extends Mentor> Iterable<S> saveAll(Iterable<S> mentors) {
+        return mentorRepository.saveAll(mentors);
+    }
 }

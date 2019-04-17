@@ -36,4 +36,8 @@ public class SubdirectionService {
         subdirectionRepository.findByDirectionIdIsNull().forEach(subdirections::add);
         return subdirections;
     }
+
+    public <S extends Subdirection> Iterable<S> saveAll(Iterable<S> subdirections) {
+        return subdirectionRepository.saveAll(subdirections);
+    }
 }
