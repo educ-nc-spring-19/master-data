@@ -7,6 +7,7 @@ import com.educ_nc_spring_19.master_data.model.entity.Subdirection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class DataBindService {
     private final StudentService studentService;
 
     // TO DO
-    public Map<String, Iterable<?>> bindAll() {
+    public Map<String, List<?>> bindAll() {
         List<Direction> directions = directionService.findAll();
         List<Subdirection> subdirections = subdirectionService.findAll();
         List<Mentor> mentors = mentorService.findAll();
@@ -62,18 +63,18 @@ public class DataBindService {
                     .forEach(student -> student.setInterviewer(extIdMentorMap.getOrDefault(student.getExtInterviewerId(), null)));
         }
 
-        Map<String, Iterable<?>> result = new HashMap<>();
+        Map<String, List<?>> result = new HashMap<>();
 
         if (CollectionUtils.isNotEmpty(subdirections)) {
-            result.put("subdirections", subdirectionService.saveAll(subdirections));
+            result.put("subdirections", IterableUtils.toList(subdirectionService.saveAll(subdirections)));
         }
 
         if (CollectionUtils.isNotEmpty(mentors)) {
-            result.put("mentors", mentorService.saveAll(mentors));
+            result.put("mentors", IterableUtils.toList(mentorService.saveAll(mentors)));
         }
 
         if (CollectionUtils.isNotEmpty(students)) {
-            result.put("students", studentService.saveAll(students));
+            result.put("students", IterableUtils.toList(studentService.saveAll(students)));
         }
 
         return result;

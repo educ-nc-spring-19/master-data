@@ -8,7 +8,7 @@ import com.educ_nc_spring_19.master_data.model.entity.Student;
 import com.educ_nc_spring_19.master_data.model.entity.Subdirection;
 import com.educ_nc_spring_19.master_data.service.DataBindService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,31 +29,27 @@ public class RemoteProcedureController {
     private final MentorMapper mentorMapper;
     private final StudentMapper studentMapper;
 
+    @SuppressWarnings("unchecked")
     @PatchMapping(path = "/bind-all-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> bindAllData() {
-        Map<String, Iterable<?>> resultOfBind = dataBindService.bindAll();
+        Map<String, List<?>> resultOfBind = dataBindService.bindAll();
         if (MapUtils.isEmpty(resultOfBind)) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
-        Map<String, Iterable<?>> response = new HashMap<>();
+        Map<String, List<?>> response = new HashMap<>();
 
-        List<Subdirection> subdirections = new LinkedList<>();
-        if (!IterableUtils.isEmpty(resultOfBind.get("subdirections"))) {
-            resultOfBind.get("subdirections").forEach(subdirection -> subdirections.add((Subdirection) subdirection));
-            response.put("subdirections", subdirectionMapper.toSubdirectionsDTO(subdirections));
+        // Unchecked casts, but we trust to map keys returned from DataBindService
+        if (CollectionUtils.isNotEmpty(resultOfBind.get("subdirections"))) {
+            response.put("subdirections", subdirectionMapper.toSubdirectionsDTO((List<Subdirection>) resultOfBind.get("subdirections")));
         }
 
-        List<Mentor> mentors = new LinkedList<>();
-        if (!IterableUtils.isEmpty(resultOfBind.get("mentors"))) {
-            resultOfBind.get("mentors").forEach(mentor -> mentors.add((Mentor) mentor));
-            response.put("mentors", mentorMapper.toMentorsDTO(mentors));
+        if (CollectionUtils.isNotEmpty(resultOfBind.get("mentors"))) {
+            response.put("mentors", mentorMapper.toMentorsDTO((List<Mentor>) resultOfBind.get("mentors")));
         }
 
-        List<Student> students = new LinkedList<>();
-        if (!IterableUtils.isEmpty(resultOfBind.get("students"))) {
-            resultOfBind.get("students").forEach(student -> students.add((Student) student));
-            response.put("students", studentMapper.toStudentsDTO(students));
+        if (CollectionUtils.isNotEmpty(resultOfBind.get("students"))) {
+            response.put("students", studentMapper.toStudentsDTO((List<Student>) resultOfBind.get("students")));
         }
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
