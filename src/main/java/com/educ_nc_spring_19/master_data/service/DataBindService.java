@@ -26,6 +26,7 @@ public class DataBindService {
     private final StudentService studentService;
 
     // TO DO
+    @SuppressWarnings("Duplicates")
     public Map<String, List<?>> bindAll() {
         List<Direction> directions = directionService.findAll();
         List<Subdirection> subdirections = subdirectionService.findAll();
@@ -37,12 +38,26 @@ public class DataBindService {
             Map<String, Direction> extIdDirectionMap = new HashMap<>();
             directions.forEach(direction -> extIdDirectionMap.put(direction.getExternalId(), direction));
 
-            subdirections.forEach(subdirection ->
-                    subdirection.setDirection(extIdDirectionMap.getOrDefault(subdirection.getExtDirectionId(), null)));
-            mentors.forEach(mentor ->
-                    mentor.setDirection(extIdDirectionMap.getOrDefault(mentor.getExtDirectionId(), null)));
-            students.forEach(student ->
-                    student.setDirection(extIdDirectionMap.getOrDefault(student.getExtDirectionId(), null)));
+            subdirections.forEach(subdirection -> {
+                subdirection.setDirection(extIdDirectionMap.getOrDefault(subdirection.getExtDirectionId(), null));
+                if (subdirection.getDirection() != null) {
+                    subdirection.setDirectionId(subdirection.getDirection().getId());
+                }
+            });
+
+            mentors.forEach(mentor -> {
+                mentor.setDirection(extIdDirectionMap.getOrDefault(mentor.getExtDirectionId(), null));
+                if (mentor.getDirection() != null) {
+                    mentor.setDirectionId(mentor.getDirection().getId());
+                }
+            });
+
+            students.forEach(student -> {
+                student.setDirection(extIdDirectionMap.getOrDefault(student.getExtDirectionId(), null));
+                if (student.getDirection() != null) {
+                    student.setDirectionId(student.getDirection().getId());
+                }
+            });
         }
 
         // bind subdirections to students
@@ -50,8 +65,14 @@ public class DataBindService {
             Map<String, Subdirection> extIdSubdirectionMap = new HashMap<>();
             subdirections.forEach(subdirection -> extIdSubdirectionMap.put(subdirection.getExternalId(), subdirection));
 
-            students.stream().filter(student -> !StringUtils.isBlank(student.getExtSubdirectionId()))
-                    .forEach(student -> student.setSubdirection(extIdSubdirectionMap.getOrDefault(student.getExtSubdirectionId(), null)));
+            students.stream()
+                    .filter(student -> !StringUtils.isBlank(student.getExtSubdirectionId()))
+                    .forEach(student -> {
+                        student.setSubdirection(extIdSubdirectionMap.getOrDefault(student.getExtSubdirectionId(), null));
+                        if (student.getSubdirection() != null) {
+                            student.setSubdirectionId(student.getSubdirection().getId());
+                        }
+                    });
         }
 
         // bind interviewers to students
@@ -59,8 +80,14 @@ public class DataBindService {
             Map<String, Mentor> extIdMentorMap = new HashMap<>();
             mentors.forEach(mentor -> extIdMentorMap.put(mentor.getExternalId(), mentor));
 
-            students.stream().filter(student -> !StringUtils.isBlank(student.getExtInterviewerId()))
-                    .forEach(student -> student.setInterviewer(extIdMentorMap.getOrDefault(student.getExtInterviewerId(), null)));
+            students.stream()
+                    .filter(student -> !StringUtils.isBlank(student.getExtInterviewerId()))
+                    .forEach(student -> {
+                        student.setInterviewer(extIdMentorMap.getOrDefault(student.getExtInterviewerId(), null));
+                        if (student.getInterviewer() != null) {
+                            student.setInterviewerId(student.getInterviewer().getId());
+                        }
+                    });
         }
 
         Map<String, List<?>> result = new HashMap<>();
