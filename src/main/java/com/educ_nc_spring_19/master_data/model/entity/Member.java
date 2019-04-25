@@ -3,7 +3,6 @@ package com.educ_nc_spring_19.master_data.model.entity;
 import com.educ_nc_spring_19.educ_nc_spring_19_common.common.Audit;
 import com.educ_nc_spring_19.educ_nc_spring_19_common.common.Auditable;
 import com.educ_nc_spring_19.educ_nc_spring_19_common.common.listener.AuditListener;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +35,6 @@ public abstract class Member implements Auditable, Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "direction_id", referencedColumnName = "id")
     private Direction direction;

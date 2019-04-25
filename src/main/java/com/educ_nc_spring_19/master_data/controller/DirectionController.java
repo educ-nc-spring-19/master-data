@@ -20,7 +20,7 @@ public class DirectionController {
     private final DirectionMapper directionMapper;
 
     @GetMapping
-    public ResponseEntity<List<DirectionDTO>> find(@RequestParam(value = "id", required = false) List<UUID> ids) {
+    public ResponseEntity find(@RequestParam(value = "id", required = false) List<UUID> ids) {
 
         List<Direction> directionsToResponse = new LinkedList<>();
 
@@ -36,7 +36,7 @@ public class DirectionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DirectionDTO> findById(@PathVariable(name = "id") UUID id) {
+    public ResponseEntity findById(@PathVariable(name = "id") UUID id) {
         Optional<Direction> direction = directionService.findById(id);
         return direction.isPresent()
                 ? ResponseEntity.status(HttpStatus.OK).body(directionMapper.toDirectionDTO(direction.get()))

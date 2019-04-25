@@ -1,6 +1,5 @@
 package com.educ_nc_spring_19.master_data.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -25,7 +24,6 @@ public class Mentor extends Member {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonIgnore
     @OneToMany(mappedBy = "interviewer", fetch = FetchType.LAZY)
     private List<Student> students;
 }

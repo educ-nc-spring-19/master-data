@@ -22,8 +22,7 @@ public class StudentController {
     private final StudentMapper studentMapper;
 
     @GetMapping
-    public ResponseEntity<List<StudentDTO>> findAllById(
-            @RequestParam(value = "id", required = false) List<UUID> ids) {
+    public ResponseEntity findAllById(@RequestParam(value = "id", required = false) List<UUID> ids) {
 
         if (CollectionUtils.isEmpty(ids)) {
             return ResponseEntity.status(HttpStatus.OK)
@@ -35,7 +34,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDTO> findById(@PathVariable(name = "id") UUID id) {
+    public ResponseEntity findById(@PathVariable(name = "id") UUID id) {
         Optional<Student> student = studentService.findById(id);
         return student.isPresent()
                 ? ResponseEntity.status(HttpStatus.OK).body(studentMapper.toStudentDTO(student.get()))

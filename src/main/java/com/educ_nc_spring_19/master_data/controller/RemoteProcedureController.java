@@ -31,7 +31,7 @@ public class RemoteProcedureController {
 
     @SuppressWarnings("unchecked")
     @PatchMapping(path = "/bind-all-data", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> bindAllData() {
+    public ResponseEntity bindAllData() {
         Map<String, List<?>> resultOfBind = dataBindService.bindAll();
         if (MapUtils.isEmpty(resultOfBind)) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
