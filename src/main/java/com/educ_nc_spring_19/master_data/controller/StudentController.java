@@ -1,6 +1,5 @@
 package com.educ_nc_spring_19.master_data.controller;
 
-import com.educ_nc_spring_19.educ_nc_spring_19_common.common.dto.StudentDTO;
 import com.educ_nc_spring_19.master_data.mapper.StudentMapper;
 import com.educ_nc_spring_19.master_data.model.entity.Student;
 import com.educ_nc_spring_19.master_data.service.StudentService;
@@ -22,7 +21,7 @@ public class StudentController {
     private final StudentMapper studentMapper;
 
     @GetMapping
-    public ResponseEntity findAllById(@RequestParam(value = "id", required = false) List<UUID> ids) {
+    public ResponseEntity find(@RequestParam(value = "id", required = false) List<UUID> ids) {
 
         if (CollectionUtils.isEmpty(ids)) {
             return ResponseEntity.status(HttpStatus.OK)

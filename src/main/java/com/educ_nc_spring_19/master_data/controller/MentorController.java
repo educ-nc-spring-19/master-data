@@ -1,6 +1,5 @@
 package com.educ_nc_spring_19.master_data.controller;
 
-import com.educ_nc_spring_19.educ_nc_spring_19_common.common.dto.MentorDTO;
 import com.educ_nc_spring_19.master_data.mapper.MentorMapper;
 import com.educ_nc_spring_19.master_data.model.entity.Mentor;
 import com.educ_nc_spring_19.master_data.service.MentorService;

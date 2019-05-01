@@ -1,6 +1,5 @@
 package com.educ_nc_spring_19.master_data.controller;
 
-import com.educ_nc_spring_19.educ_nc_spring_19_common.common.dto.DirectionDTO;
 import com.educ_nc_spring_19.master_data.mapper.DirectionMapper;
 import com.educ_nc_spring_19.master_data.model.entity.Direction;
 import com.educ_nc_spring_19.master_data.service.DirectionService;
@@ -22,16 +21,13 @@ public class DirectionController {
     @GetMapping
     public ResponseEntity find(@RequestParam(value = "id", required = false) List<UUID> ids) {
 
-        List<Direction> directionsToResponse = new LinkedList<>();
-
-        if (CollectionUtils.isNotEmpty(ids)) {
-            directionsToResponse.addAll(directionService.findAllById(ids));
-        } else {
-            directionsToResponse.addAll(directionService.findAll());
+        if (CollectionUtils.isEmpty(ids)) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(directionMapper.toDirectionsDTO(directionService.findAll()));
         }
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(directionMapper.toDirectionsDTO(directionsToResponse));
+                .body(directionMapper.toDirectionsDTO(directionService.findAllById(ids)));
 
     }
 
