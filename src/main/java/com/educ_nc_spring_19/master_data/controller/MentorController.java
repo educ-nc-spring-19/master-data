@@ -1,6 +1,5 @@
 package com.educ_nc_spring_19.master_data.controller;
 
-import com.educ_nc_spring_19.educ_nc_spring_19_common.common.dto.MentorDTO;
 import com.educ_nc_spring_19.master_data.mapper.MentorMapper;
 import com.educ_nc_spring_19.master_data.model.entity.Mentor;
 import com.educ_nc_spring_19.master_data.service.MentorService;
@@ -23,7 +22,7 @@ public class MentorController {
     private final MentorMapper mentorMapper;
 
     @GetMapping
-    public ResponseEntity<List<MentorDTO>> find(
+    public ResponseEntity find(
             @RequestParam(value = "id", required = false) List<UUID> ids,
             @RequestParam(value = "userId", required = false) List<UUID> userIds,
             @RequestParam(value = "directionId", required = false) UUID directionId) {
@@ -48,7 +47,7 @@ public class MentorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MentorDTO> findById(@PathVariable(name = "id") UUID id) {
+    public ResponseEntity findById(@PathVariable(name = "id") UUID id) {
         Optional<Mentor> mentor = mentorService.findById(id);
         return mentor.isPresent()
                 ? ResponseEntity.status(HttpStatus.OK).body(mentorMapper.toMentorDTO(mentor.get()))
